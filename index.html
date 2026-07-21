@@ -395,15 +395,15 @@
     <!-- ==================== 第二屏 · 声音 ==================== -->
     <section class="screen" id="sound">
         <div class="container">
-            <div class="section-label">和絮的风</div>
-            <div class="section-title">是深情</div>
-            <div class="section-sub">点击播放 · 听见她们的瞬间</div>
+            <div class="section-label">每一瞬间，都是永恒</div>
+            <div class="section-title">那年今日</div>
+            <div class="section-sub">回到现场 · 听见她们</div>
 
             <div class="audio-grid" id="audioGrid">
                 <!-- 音频卡片 1 -->
                 <div class="audio-card" data-audio="audio1">
-                    <div class="card-label">片段 01</div>
-                    <div class="card-title">镇江 · 那一眼</div>
+                    <div class="card-label">2024</div>
+                    <div class="card-title">镇江 · 我们回家吧</div>
                     <button class="play-btn" data-target="audio1" aria-label="播放">
                         <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>
                     </button>
@@ -413,13 +413,13 @@
                         </div>
                         <span class="time-display" id="time-audio1">0:00</span>
                     </div>
-                    <div class="card-desc">“那一刻，她不是许仙”</div>
+                    <div class="card-desc">“触碰 · 握住 · 宣告”</div>
                 </div>
 
                 <!-- 音频卡片 2 -->
                 <div class="audio-card" data-audio="audio2">
-                    <div class="card-label">片段 02</div>
-                    <div class="card-title">奔赴 · 海拉尔</div>
+                    <div class="card-label">2024</div>
+                    <div class="card-title">杭州 · 为了你什么都可以</div>
                     <button class="play-btn" data-target="audio2" aria-label="播放">
                         <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>
                     </button>
@@ -429,13 +429,13 @@
                         </div>
                         <span class="time-display" id="time-audio2">0:00</span>
                     </div>
-                    <div class="card-desc">“她去了，因为她在那里”</div>
+                    <div class="card-desc">“这辈子，我懂得”</div>
                 </div>
 
                 <!-- 音频卡片 3 -->
                 <div class="audio-card" data-audio="audio3">
-                    <div class="card-label">片段 03</div>
-                    <div class="card-title">三段式 · 牵手</div>
+                    <div class="card-label">2024</div>
+                    <div class="card-title">执手相伴 · 生生世世</div>
                     <button class="play-btn" data-target="audio3" aria-label="播放">
                         <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>
                     </button>
@@ -445,7 +445,7 @@
                         </div>
                         <span class="time-display" id="time-audio3">0:00</span>
                     </div>
-                    <div class="card-desc">“触碰 · 握住 · 宣告”</div>
+                    <div class="card-desc">“雨落伞上，她印心间”</div>
                 </div>
             </div>
         </div>
@@ -458,15 +458,15 @@
             <div class="section-title">被击中的瞬间</div>
             <div class="memory-grid">
                 <div class="memory-item">
-                    “2024.6.22 南京场<br>她递水的时候手抖了一下”
+                    “满场星光<br>她只看到她的眼睛”
                     <span class="mem-year">南京 · 2024</span>
                 </div>
                 <div class="memory-item">
-                    “唱到‘千年等一回’<br>她转头看了她一眼”
+                    “唱到‘爱我永不变’<br>她转头看了她一眼”
                     <span class="mem-year">杭州 · 2024</span>
                 </div>
                 <div class="memory-item">
-                    “海拉尔的风很大<br>她站在那里，她就来了”
+                    “海拉尔，很远很冷<br>因为她在，她就来了”
                     <span class="mem-year">海拉尔 · 2025</span>
                 </div>
                 <div class="memory-item">
@@ -479,10 +479,10 @@
 
     <!-- ==================== 页脚 ==================== -->
     <footer id="footer">
-        <div class="foot-soul">和絮的风，是深情</div>
-        <p>「一直在一起」<br>献给看懂那个眼神的人</p>
+        <div class="foot-soul">这里，只有她们</div>
+        <p>「一直在一起」<br>如果你也看懂了，就是这里的主人</p>
         <p style="margin-top:1.2rem; font-size:0.65rem; color:#b09a88;">
-            图片与音频可替换 · 此页为纪念而作
+            此页为纪念而作
         </p>
     </footer>
 
@@ -497,22 +497,8 @@
             const audioEl1 = new Audio('audio/zhenjiang1.m4a');
             // 片段2：audio/hangzhou2.m4a
             const audioEl2 = new Audio('audio/hangzhou2.m4a');
-
-            // 占位音效生成器（片段3）
-            function createPlaceholderAudio(duration) {
-                const ctx = new(window.AudioContext || window.webkitAudioContext)();
-                const buffer = ctx.createBuffer(1, ctx.sampleRate * duration, ctx.sampleRate);
-                const data = buffer.getChannelData(0);
-                for (let i = 0; i < data.length; i++) {
-                    const t = i / ctx.sampleRate;
-                    data[i] = 0.3 * Math.sin(2 * Math.PI * 440 * t) +
-                        0.15 * Math.sin(2 * Math.PI * 880 * t) +
-                        0.1 * Math.sin(2 * Math.PI * 1320 * t);
-                    const fade = Math.min(1, t * 2, (duration - t) * 2);
-                    data[i] *= fade * 0.5;
-                }
-                return { context: ctx, buffer: buffer, duration: duration };
-            }
+            // 片段3：audio/qianshou3.m4a
+            const audioEl3 = new Audio('audio/qianshou3.m4a');
 
             // 初始化每个卡片
             cards.forEach((card, index) => {
@@ -527,46 +513,35 @@
                 let startTime = 0;
                 let pausedAt = 0;
 
-                // 片段3 占位数据
-                let placeholder = null;
-                let ctx = null;
-                let buffer = null;
                 let duration = 6;
 
                 // 根据 index 选择对应的 audio 元素
                 let audioEl = null;
                 if (index === 0) audioEl = audioEl1;
                 else if (index === 1) audioEl = audioEl2;
+                else if (index === 2) audioEl = audioEl3;
 
-                if (index === 0 || index === 1) {
-                    // 片段1、2：使用 <audio> 标签
-                    audioEl.preload = 'metadata';
-                    audioEl.addEventListener('loadedmetadata', function() {
-                        duration = audioEl.duration;
-                        timeDisplay.textContent = '0:00';
-                    });
-                    audioEl.addEventListener('timeupdate', function() {
-                        if (isPlaying && audioEl.duration) {
-                            const pct = (audioEl.currentTime / audioEl.duration) * 100;
-                            progressFill.style.width = pct + '%';
-                            timeDisplay.textContent = formatTime(audioEl.currentTime);
-                        }
-                    });
-                    audioEl.addEventListener('ended', function() {
-                        stopPlayback();
-                        progressFill.style.width = '0%';
-                        timeDisplay.textContent = '0:00';
-                    });
-                    audioEl.addEventListener('error', function(e) {
-                        console.warn('音频加载失败:', audioEl.src, e);
-                    });
-                } else {
-                    // 片段3：占位音效
-                    placeholder = createPlaceholderAudio(6);
-                    ctx = placeholder.context;
-                    buffer = placeholder.buffer;
-                    duration = placeholder.duration;
-                }
+                // 所有片段都使用 <audio> 标签
+                audioEl.preload = 'metadata';
+                audioEl.addEventListener('loadedmetadata', function() {
+                    duration = audioEl.duration;
+                    timeDisplay.textContent = '0:00';
+                });
+                audioEl.addEventListener('timeupdate', function() {
+                    if (isPlaying && audioEl.duration) {
+                        const pct = (audioEl.currentTime / audioEl.duration) * 100;
+                        progressFill.style.width = pct + '%';
+                        timeDisplay.textContent = formatTime(audioEl.currentTime);
+                    }
+                });
+                audioEl.addEventListener('ended', function() {
+                    stopPlayback();
+                    progressFill.style.width = '0%';
+                    timeDisplay.textContent = '0:00';
+                });
+                audioEl.addEventListener('error', function(e) {
+                    console.warn('音频加载失败:', audioEl.src, e);
+                });
 
                 function formatTime(seconds) {
                     if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
@@ -576,13 +551,9 @@
                 }
 
                 function stopPlayback() {
-                    if (index === 0 || index === 1) {
-                        if (audioEl) {
-                            audioEl.pause();
-                            audioEl.currentTime = 0;
-                        }
-                    } else {
-                        if (source) { try { source.stop(); } catch (e) {} source = null; }
+                    if (audioEl) {
+                        audioEl.pause();
+                        audioEl.currentTime = 0;
                     }
                     isPlaying = false;
                     playBtn.classList.remove('playing');
@@ -593,95 +564,37 @@
                 }
 
                 function startPlayback() {
-                    if (index === 0 || index === 1) {
-                        if (!audioEl) return;
-                        audioEl.play().catch(err => console.warn('播放失败', err));
-                        isPlaying = true;
-                        playBtn.classList.add('playing');
-                        playBtn.innerHTML =
-                            `<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>`;
-                    } else {
-                        if (ctx.state === 'suspended') ctx.resume();
-                        if (source) { try { source.stop(); } catch (e) {} source = null; }
-                        source = ctx.createBufferSource();
-                        source.buffer = buffer;
-                        source.connect(ctx.destination);
-                        source.start(0, pausedAt);
-                        startTime = performance.now();
-                        isPlaying = true;
-                        playBtn.classList.add('playing');
-                        playBtn.innerHTML =
-                            `<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>`;
-                        if (animationFrame) cancelAnimationFrame(animationFrame);
-                        updatePlaceholder();
-                        source.onended = function() {
-                            stopPlayback();
-                            progressFill.style.width = '0%';
-                            timeDisplay.textContent = '0:00';
-                        };
-                    }
-                }
-
-                function updatePlaceholder() {
-                    if (!isPlaying) return;
-                    const elapsed = (performance.now() - startTime) / 1000 + pausedAt;
-                    const pct = Math.min(100, (elapsed / duration) * 100);
-                    progressFill.style.width = pct + '%';
-                    timeDisplay.textContent = formatTime(Math.min(elapsed, duration));
-                    if (elapsed < duration) {
-                        animationFrame = requestAnimationFrame(updatePlaceholder);
-                    } else {
-                        stopPlayback();
-                        progressFill.style.width = '0%';
-                        timeDisplay.textContent = '0:00';
-                    }
+                    if (!audioEl) return;
+                    audioEl.play().catch(err => console.warn('播放失败', err));
+                    isPlaying = true;
+                    playBtn.classList.add('playing');
+                    playBtn.innerHTML =
+                        `<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>`;
                 }
 
                 playBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     if (isPlaying) {
-                        if (index === 0 || index === 1) {
-                            if (audioEl) {
-                                audioEl.pause();
-                                isPlaying = false;
-                                playBtn.classList.remove('playing');
-                                playBtn.innerHTML =
-                                    `<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>`;
-                                if (audioEl.duration) {
-                                    progressFill.style.width = (audioEl.currentTime / audioEl.duration *
-                                    100) + '%';
-                                    timeDisplay.textContent = formatTime(audioEl.currentTime);
-                                }
-                            }
-                        } else {
-                            const elapsed = (performance.now() - startTime) / 1000 + pausedAt;
-                            pausedAt = Math.min(elapsed, duration);
-                            if (source) { try { source.stop(); } catch (e) {} source = null; }
+                        if (audioEl) {
+                            audioEl.pause();
                             isPlaying = false;
                             playBtn.classList.remove('playing');
                             playBtn.innerHTML =
                                 `<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>`;
-                            if (animationFrame) { cancelAnimationFrame(animationFrame);
-                                animationFrame = null; }
-                            if (pausedAt >= duration) {
-                                pausedAt = 0;
-                                progressFill.style.width = '0%';
-                                timeDisplay.textContent = '0:00';
+                            if (audioEl.duration) {
+                                progressFill.style.width = (audioEl.currentTime / audioEl.duration *
+                                100) + '%';
+                                timeDisplay.textContent = formatTime(audioEl.currentTime);
                             }
                         }
                     } else {
-                        if (index !== 0 && index !== 1 && pausedAt >= duration) {
-                            pausedAt = 0;
-                            progressFill.style.width = '0%';
-                            timeDisplay.textContent = '0:00';
-                        }
                         startPlayback();
                     }
                 });
 
                 const track = card.querySelector('.progress-track');
                 track.addEventListener('click', function(e) {
-                    if ((index === 0 || index === 1) && audioEl && audioEl.duration) {
+                    if (audioEl && audioEl.duration) {
                         const rect = this.getBoundingClientRect();
                         const x = (e.clientX - rect.left) / rect.width;
                         audioEl.currentTime = x * audioEl.duration;
@@ -695,7 +608,7 @@
             window.addEventListener('beforeunload', function() {
                 audioMap.forEach((val) => val.stopPlayback());
             });
-            console.log('🎧 音频已就绪（片段1: zhenjiang1.m4a，片段2: hangzhou2.m4a，片段3: 占位音效）');
+            console.log('🎧 三段音频已全部就绪');
             console.log('📸 图片位置: images/home.jpg');
         })();
     </script>
