@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+    <title>一直在一起 · 叶童与赵雅芝</title>
+    <style>
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fcf9f6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1c1a18;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== 每一屏 ===== */
+        .screen {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem 1.5rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ===== 首页 ===== */
+        #home {
+            background: #fcf9f6;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .hero-image-wrapper {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 2.4rem;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -20px rgba(100, 80, 65, 0.12);
+            aspect-ratio: 16 / 10;
+            background-image: url('images/home.jpg');
+            background-size: cover;
+            background-position: center;
+            transition: all 0.3s;
+        }
+
+        .hero-text {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero-text .divider-line {
+            width: 60px;
+            height: 2px;
+            background: #d4c5b8;
+            margin: 0.8rem auto 0.8rem;
+            border-radius: 4px;
+        }
+
+        .hero-text .soul {
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: #7a6b5e;
+            font-style: italic;
+        }
+
+        .hero-text .soul em {
+            font-style: normal;
+            background: rgba(210, 195, 180, 0.18);
+            padding: 0.1rem 0.8rem;
+            border-radius: 40px;
+        }
+
+        /* ===== 第二屏：声音 ===== */
+        #sound {
+            background: #f8f5f2;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 3rem 1.5rem;
+            justify-content: center;
+        }
+
+        #sound .section-label {
+            text-align: center;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #8a7a6c;
+            margin-bottom: 0.6rem;
+            font-weight: 400;
+        }
+
+        #sound .section-title {
+            text-align: center;
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            color: #1c1a18;
+            margin-bottom: 0.4rem;
+        }
+
+        #sound .section-sub {
+            text-align: center;
+            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+            color: #7a6b5e;
+            font-weight: 300;
+            margin-bottom: 2.8rem;
+            letter-spacing: 0.06em;
+        }
+
+        .audio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.6rem;
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .audio-card {
+            background: rgba(255, 252, 249, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 1.8rem 1.4rem 1.6rem;
+            border: 1px solid rgba(215, 200, 188, 0.2);
+            box-shadow: 0 8px 24px rgba(100, 80, 65, 0.04);
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .audio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(100, 80, 65, 0.06);
+            border-color: rgba(200, 180, 165, 0.35);
+            background: rgba(255, 252, 249, 0.92);
+        }
+
+        .audio-card .card-label {
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: #8a7a6c;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+
+        .audio-card .card-title {
+            font-size: 1.1rem;
+            font-weight: 450;
+            color: #1c1a18;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.02em;
+        }
+
+        .play-btn {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid #dccfc4;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #1c1a18;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(80, 55, 40, 0.04);
+            margin: 0.2rem 0 0.6rem;
+        }
+
+        .play-btn:hover {
+            background: #f5ede6;
+            transform: scale(1.04);
+            border-color: #c4ad9a;
+        }
+
+        .play-btn.playing {
+            background: #ece2d9;
+            border-color: #b99f8a;
+        }
+
+        .play-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+        }
+
+        .audio-card .progress-wrap {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 0.4rem 0 0.2rem;
+        }
+
+        .audio-card .progress-track {
+            flex: 1;
+            height: 3px;
+            background: #e8ddd4;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .audio-card .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #c4ad9a;
+            border-radius: 10px;
+            transition: width 0.05s linear;
+        }
+
+        .audio-card .time-display {
+            font-size: 0.65rem;
+            color: #8a7a6c;
+            letter-spacing: 0.04em;
+            min-width: 42px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .audio-card .card-desc {
+            font-size: 0.8rem;
+            color: #6b5d50;
+            font-style: italic;
+            margin-top: 0.5rem;
+            font-weight: 350;
+            letter-spacing: 0.02em;
+        }
+
+        /* ===== 第三屏：我们记得 ===== */
+        #memory {
+            background: #fcf9f6;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 3rem 1.5rem;
+            justify-content: center;
+        }
+
+        #memory .section-label {
+            text-align: center;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #8a7a6c;
+            margin-bottom: 0.4rem;
+            font-weight: 400;
+        }
+
+        #memory .section-title {
+            text-align: center;
+            font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            color: #1c1a18;
+            margin-bottom: 2rem;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .memory-item {
+            background: rgba(255, 252, 249, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 1.4rem 1.2rem;
+            border: 1px solid rgba(215, 200, 188, 0.18);
+            font-size: 0.92rem;
+            color: #1c1a18;
+            text-align: center;
+            transition: 0.2s;
+            font-weight: 350;
+            letter-spacing: 0.02em;
+            line-height: 1.6;
+        }
+
+        .memory-item:hover {
+            background: rgba(255, 252, 249, 0.85);
+            border-color: rgba(200, 180, 165, 0.3);
+        }
+
+        .memory-item .mem-year {
+            display: block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #8a7a6c;
+            margin-top: 0.3rem;
+            font-weight: 400;
+        }
+
+        /* ===== 页脚 ===== */
+        #footer {
+            background: #fcf9f6;
+            padding: 2.5rem 1.5rem 3rem;
+            text-align: center;
+            border-top: 1px solid #ede5dd;
+        }
+
+        #footer p {
+            font-size: 0.8rem;
+            color: #8a7a6c;
+            letter-spacing: 0.06em;
+            font-weight: 300;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        #footer .foot-soul {
+            font-size: 0.95rem;
+            color: #6b5d50;
+            font-style: italic;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.04em;
+        }
+
+        /* ===== 响应式微调 ===== */
+        @media (max-width: 600px) {
+            .audio-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .memory-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .play-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+            }
+            .audio-card {
+                padding: 1.2rem 0.8rem 1.2rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .audio-grid {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+            }
+            .memory-grid {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+            }
+        }
+
+        /* ===== 工具类 ===== */
+        .text-balance {
+            text-wrap: balance;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== 首页 ==================== -->
+    <section class="screen" id="home">
+        <div class="container">
+            <div class="hero-image-wrapper" id="mainImage">
+                <!-- 图片在 images/home.jpg -->
+            </div>
+            <div class="hero-text">
+                <div class="divider-line"></div>
+                <div class="soul">
+                    <em>一直在一起</em>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 第二屏 · 声音 ==================== -->
+    <section class="screen" id="sound">
+        <div class="container">
+            <div class="section-label">和絮的风</div>
+            <div class="section-title">是深情</div>
+            <div class="section-sub">点击播放 · 听见她们的瞬间</div>
+
+            <div class="audio-grid" id="audioGrid">
+                <!-- 音频卡片 1 -->
+                <div class="audio-card" data-audio="audio1">
+                    <div class="card-label">片段 01</div>
+                    <div class="card-title">镇江 · 那一眼</div>
+                    <button class="play-btn" data-target="audio1" aria-label="播放">
+                        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>
+                    </button>
+                    <div class="progress-wrap">
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progress-audio1"></div>
+                        </div>
+                        <span class="time-display" id="time-audio1">0:00</span>
+                    </div>
+                    <div class="card-desc">“那一刻，她不是许仙”</div>
+                </div>
+
+                <!-- 音频卡片 2 -->
+                <div class="audio-card" data-audio="audio2">
+                    <div class="card-label">片段 02</div>
+                    <div class="card-title">奔赴 · 海拉尔</div>
+                    <button class="play-btn" data-target="audio2" aria-label="播放">
+                        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>
+                    </button>
+                    <div class="progress-wrap">
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progress-audio2"></div>
+                        </div>
+                        <span class="time-display" id="time-audio2">0:00</span>
+                    </div>
+                    <div class="card-desc">“她去了，因为她在那里”</div>
+                </div>
+
+                <!-- 音频卡片 3 -->
+                <div class="audio-card" data-audio="audio3">
+                    <div class="card-label">片段 03</div>
+                    <div class="card-title">三段式 · 牵手</div>
+                    <button class="play-btn" data-target="audio3" aria-label="播放">
+                        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>
+                    </button>
+                    <div class="progress-wrap">
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progress-audio3"></div>
+                        </div>
+                        <span class="time-display" id="time-audio3">0:00</span>
+                    </div>
+                    <div class="card-desc">“触碰 · 握住 · 宣告”</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 第三屏 · 我们记得 ==================== -->
+    <section class="screen" id="memory">
+        <div class="container">
+            <div class="section-label">我们记得</div>
+            <div class="section-title">被击中的瞬间</div>
+            <div class="memory-grid">
+                <div class="memory-item">
+                    “2024.6.22 南京场<br>她递水的时候手抖了一下”
+                    <span class="mem-year">南京 · 2024</span>
+                </div>
+                <div class="memory-item">
+                    “唱到‘千年等一回’<br>她转头看了她一眼”
+                    <span class="mem-year">杭州 · 2024</span>
+                </div>
+                <div class="memory-item">
+                    “海拉尔的风很大<br>她站在那里，她就来了”
+                    <span class="mem-year">海拉尔 · 2025</span>
+                </div>
+                <div class="memory-item">
+                    “谢幕时她牵着她<br>走了很长一段路”
+                    <span class="mem-year">镇江 · 2024</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 页脚 ==================== -->
+    <footer id="footer">
+        <div class="foot-soul">和絮的风，是深情</div>
+        <p>「一直在一起」<br>献给看懂那个眼神的人</p>
+        <p style="margin-top:1.2rem; font-size:0.65rem; color:#b09a88;">
+            图片与音频可替换 · 此页为纪念而作
+        </p>
+    </footer>
+
+    <!-- ========================================================== -->
+    <!-- JavaScript · 音频播放器 -->
+    <script>
+        (function() {
+            const cards = document.querySelectorAll('.audio-card');
+            const audioMap = new Map();
+
+            // 片段1：audio/zhenjiang1.m4a
+            const audioEl1 = new Audio('audio/zhenjiang1.m4a');
+            // 片段2：audio/hangzhou2.m4a
+            const audioEl2 = new Audio('audio/hangzhou2.m4a');
+
+            // 占位音效生成器（片段3）
+            function createPlaceholderAudio(duration) {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const buffer = ctx.createBuffer(1, ctx.sampleRate * duration, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < data.length; i++) {
+                    const t = i / ctx.sampleRate;
+                    data[i] = 0.3 * Math.sin(2 * Math.PI * 440 * t) +
+                        0.15 * Math.sin(2 * Math.PI * 880 * t) +
+                        0.1 * Math.sin(2 * Math.PI * 1320 * t);
+                    const fade = Math.min(1, t * 2, (duration - t) * 2);
+                    data[i] *= fade * 0.5;
+                }
+                return { context: ctx, buffer: buffer, duration: duration };
+            }
+
+            // 初始化每个卡片
+            cards.forEach((card, index) => {
+                const id = card.dataset.audio || `audio${index}`;
+                const playBtn = card.querySelector('.play-btn');
+                const progressFill = card.querySelector('.progress-fill');
+                const timeDisplay = card.querySelector('.time-display');
+
+                let isPlaying = false;
+                let animationFrame = null;
+                let source = null;
+                let startTime = 0;
+                let pausedAt = 0;
+
+                // 片段3 占位数据
+                let placeholder = null;
+                let ctx = null;
+                let buffer = null;
+                let duration = 6;
+
+                // 根据 index 选择对应的 audio 元素
+                let audioEl = null;
+                if (index === 0) audioEl = audioEl1;
+                else if (index === 1) audioEl = audioEl2;
+
+                if (index === 0 || index === 1) {
+                    // 片段1、2：使用 <audio> 标签
+                    audioEl.preload = 'metadata';
+                    audioEl.addEventListener('loadedmetadata', function() {
+                        duration = audioEl.duration;
+                        timeDisplay.textContent = '0:00';
+                    });
+                    audioEl.addEventListener('timeupdate', function() {
+                        if (isPlaying && audioEl.duration) {
+                            const pct = (audioEl.currentTime / audioEl.duration) * 100;
+                            progressFill.style.width = pct + '%';
+                            timeDisplay.textContent = formatTime(audioEl.currentTime);
+                        }
+                    });
+                    audioEl.addEventListener('ended', function() {
+                        stopPlayback();
+                        progressFill.style.width = '0%';
+                        timeDisplay.textContent = '0:00';
+                    });
+                    audioEl.addEventListener('error', function(e) {
+                        console.warn('音频加载失败:', audioEl.src, e);
+                    });
+                } else {
+                    // 片段3：占位音效
+                    placeholder = createPlaceholderAudio(6);
+                    ctx = placeholder.context;
+                    buffer = placeholder.buffer;
+                    duration = placeholder.duration;
+                }
+
+                function formatTime(seconds) {
+                    if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+                    const m = Math.floor(seconds / 60);
+                    const s = Math.floor(seconds % 60);
+                    return `${m}:${s.toString().padStart(2, '0')}`;
+                }
+
+                function stopPlayback() {
+                    if (index === 0 || index === 1) {
+                        if (audioEl) {
+                            audioEl.pause();
+                            audioEl.currentTime = 0;
+                        }
+                    } else {
+                        if (source) { try { source.stop(); } catch (e) {} source = null; }
+                    }
+                    isPlaying = false;
+                    playBtn.classList.remove('playing');
+                    playBtn.innerHTML =
+                        `<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>`;
+                    if (animationFrame) { cancelAnimationFrame(animationFrame);
+                        animationFrame = null; }
+                }
+
+                function startPlayback() {
+                    if (index === 0 || index === 1) {
+                        if (!audioEl) return;
+                        audioEl.play().catch(err => console.warn('播放失败', err));
+                        isPlaying = true;
+                        playBtn.classList.add('playing');
+                        playBtn.innerHTML =
+                            `<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>`;
+                    } else {
+                        if (ctx.state === 'suspended') ctx.resume();
+                        if (source) { try { source.stop(); } catch (e) {} source = null; }
+                        source = ctx.createBufferSource();
+                        source.buffer = buffer;
+                        source.connect(ctx.destination);
+                        source.start(0, pausedAt);
+                        startTime = performance.now();
+                        isPlaying = true;
+                        playBtn.classList.add('playing');
+                        playBtn.innerHTML =
+                            `<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>`;
+                        if (animationFrame) cancelAnimationFrame(animationFrame);
+                        updatePlaceholder();
+                        source.onended = function() {
+                            stopPlayback();
+                            progressFill.style.width = '0%';
+                            timeDisplay.textContent = '0:00';
+                        };
+                    }
+                }
+
+                function updatePlaceholder() {
+                    if (!isPlaying) return;
+                    const elapsed = (performance.now() - startTime) / 1000 + pausedAt;
+                    const pct = Math.min(100, (elapsed / duration) * 100);
+                    progressFill.style.width = pct + '%';
+                    timeDisplay.textContent = formatTime(Math.min(elapsed, duration));
+                    if (elapsed < duration) {
+                        animationFrame = requestAnimationFrame(updatePlaceholder);
+                    } else {
+                        stopPlayback();
+                        progressFill.style.width = '0%';
+                        timeDisplay.textContent = '0:00';
+                    }
+                }
+
+                playBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (isPlaying) {
+                        if (index === 0 || index === 1) {
+                            if (audioEl) {
+                                audioEl.pause();
+                                isPlaying = false;
+                                playBtn.classList.remove('playing');
+                                playBtn.innerHTML =
+                                    `<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>`;
+                                if (audioEl.duration) {
+                                    progressFill.style.width = (audioEl.currentTime / audioEl.duration *
+                                    100) + '%';
+                                    timeDisplay.textContent = formatTime(audioEl.currentTime);
+                                }
+                            }
+                        } else {
+                            const elapsed = (performance.now() - startTime) / 1000 + pausedAt;
+                            pausedAt = Math.min(elapsed, duration);
+                            if (source) { try { source.stop(); } catch (e) {} source = null; }
+                            isPlaying = false;
+                            playBtn.classList.remove('playing');
+                            playBtn.innerHTML =
+                                `<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21" /></svg>`;
+                            if (animationFrame) { cancelAnimationFrame(animationFrame);
+                                animationFrame = null; }
+                            if (pausedAt >= duration) {
+                                pausedAt = 0;
+                                progressFill.style.width = '0%';
+                                timeDisplay.textContent = '0:00';
+                            }
+                        }
+                    } else {
+                        if (index !== 0 && index !== 1 && pausedAt >= duration) {
+                            pausedAt = 0;
+                            progressFill.style.width = '0%';
+                            timeDisplay.textContent = '0:00';
+                        }
+                        startPlayback();
+                    }
+                });
+
+                const track = card.querySelector('.progress-track');
+                track.addEventListener('click', function(e) {
+                    if ((index === 0 || index === 1) && audioEl && audioEl.duration) {
+                        const rect = this.getBoundingClientRect();
+                        const x = (e.clientX - rect.left) / rect.width;
+                        audioEl.currentTime = x * audioEl.duration;
+                    }
+                });
+
+                audioMap.set(id, { stopPlayback: stopPlayback });
+            });
+
+            window.__audioMap = audioMap;
+            window.addEventListener('beforeunload', function() {
+                audioMap.forEach((val) => val.stopPlayback());
+            });
+            console.log('🎧 音频已就绪（片段1: zhenjiang1.m4a，片段2: hangzhou2.m4a，片段3: 占位音效）');
+            console.log('📸 图片位置: images/home.jpg');
+        })();
+    </script>
+
+</body>
+</html>
